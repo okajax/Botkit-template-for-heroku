@@ -12,7 +12,9 @@ You can get started your Botkit-powered bot right now, just click the button! ðŸ
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/okajax/Botkit-template-for-heroku)
 
 
+<!--
 ## How to use it? More details
 
 Oops, I haven't written my article in BITA-DML yet. I will add the article link. ;P
+-->
 

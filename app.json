@@ -1,0 +1,17 @@
+{
+    "name": "Botkit-template-for-heroku",
+    "description": "This is your Botkit-powered bot.",
+    "keywords": [
+    "Botkit",
+    "bot",
+    "Slack"
+  ],
+    "repository": "https://github.com/okajax/Botkit-template-for-heroku",
+    "logo": "https://raw.githubusercontent.com/okajax/Botkit-template-for-heroku/master/Let's_try_Botkit.png",
+    "env": {
+        "token": {
+            "description": "Please input your token for bot integration",
+            "value": ""
+        }
+    }
+}

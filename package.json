@@ -1,0 +1,7 @@
+{
+  "name": "okajax-botkit-template",
+  "version": "0.0.1",
+  "dependencies": {
+    "botkit": "^0.4.0"
+  }
+}

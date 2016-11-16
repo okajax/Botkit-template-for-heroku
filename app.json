@@ -10,7 +10,7 @@
     "logo": "https://raw.githubusercontent.com/okajax/Botkit-template-for-heroku/master/Let's_try_Botkit.png",
     "env": {
         "token": {
-            "description": "Please input your token for bot integration",
+            "description": "Please input your token for Slack bot integration",
             "value": ""
         }
     }

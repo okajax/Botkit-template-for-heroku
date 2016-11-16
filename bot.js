@@ -2,7 +2,7 @@
 
  Botkit Basic Template for Heroku
 
- Author: okajax (https://github.com)
+ Author: okajax (https://github.com/okajax)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 

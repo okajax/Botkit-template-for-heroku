@@ -18,7 +18,7 @@ You can get started your Botkit-powered bot right now, just click the button! �
 
 ### 3. Then, you have to switch from 'web dyno' to 'worker dyno' by hand.
 
-### 4. Here we go! Enjoy developing your bot. XD
+### 4. Here we go! Enjoy developing your bot. 😁🤝🤖
 
 <!--
 ## How to use it? More details

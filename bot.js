@@ -28,7 +28,6 @@ var bot = controller.spawn({
 
 
 
-
 //=========================================================
 // 基本的な受け答え
 //=========================================================
@@ -36,18 +35,19 @@ var bot = controller.spawn({
 // 以下がBotkitの基本形です。
 // controller.hears()で、マッチした単語に応じて処理を実行します。
 
-// 第一引数には、マッチさせたい単語を入れます。正規表現も使えます。
-// 第二引数には、反応するパターンを入れます。
+// 第一引数 ['hoge','piyo'] の部分には、マッチさせたい単語を入れます。正規表現も使えます。
+// 第二引数 'direct_message,direct_mention' の部分には、反応するパターンを入れます。
 
-//   direct_message: ダイレクトメッセージに反応する
-//   direct_mention: 先頭に@付きで発言されたメッセージに反応する
-//   mention: @付きで言及されたメッセージに反応する
-//   ambient: すべてのメッセージに反応する
+//  [パターン一覧]
+//    direct_message: ダイレクトメッセージに反応する
+//    direct_mention: 先頭に@付きで発言されたメッセージに反応する
+//    mention: @付きで言及されたメッセージに反応する
+//    ambient: すべてのメッセージに反応する
 
-controller.hears(['あなた', '誰', 'だれ', '自己紹介して'], 'mention', function (bot, message) {
+controller.hears(['挨拶', 'あなた', '誰', 'だれ', '自己紹介して'], 'direct_message,direct_mention,mention', function (bot, message) {
 
     // bot.reply()で、botに発言をさせます。
-    bot.reply(message, 'こんにちは！私はBotkit製のBotです！いろんな事ができますよ！');
+    bot.reply(message, 'こんにちは！私は*Botkit製のBot*です！\n _いろんな事ができますよ！_ :smiley:');
 
 });
 
@@ -62,23 +62,24 @@ controller.hears(['ハイタッチ'], 'direct_message,direct_mention,mention', f
     bot.api.reactions.add({
         timestamp: message.ts,
         channel: message.channel,
-        name: 'raising_hand', // ここで絵文字名を指定します (例 : smile, muscle, +1 など)
+        name: 'raising_hand', // ここで絵文字名を指定します (例 : smilely, muscle など)
     }, function (err, res) {
         if (err) {
-            bot.botkit.log('Failed to add emoji reaction :(', err); // エラーログの出力
+            bot.botkit.log('Failed to add emoji reaction :(', err); // エラーが出たとき用の出力
         }
     });
 
 });
 
+
+
 //=========================================================
 // 質問形式の会話
 //=========================================================
 
-
 controller.hears(['ラーメン'], 'direct_message,direct_mention,mention', function (bot, message) {
 
-    bot.reply(message, 'ラーメン、いいですよね:grin:');
+    bot.reply(message, ':ramen:いいですよね:grin:');
 
     // 会話を開始します。
     bot.startConversation(message, function (err, convo) {
@@ -88,10 +89,11 @@ controller.hears(['ラーメン'], 'direct_message,direct_mention,mention', func
             {
                 pattern: '醤油', // マッチさせる単語
                 callback: function (response, convo) {
-                    // ▼ マッチした時の処理
-                    convo.say('正解！:ok_woman:\n醤油！これぞ王道！:+1:'); // convo.say()で発言をします。
-                    convo.next(); // convo.next()で次へ回します。
 
+                    // ▼ マッチした時の処理 ▼
+
+                    convo.say('正解！:ok_woman:\n醤油！これぞ王道！:+1:'); // convo.say()で発言をします。
+                    convo.next(); // convo.next()で、会話を次に進めます。通常は、会話が終了します。
                 }
             },
             {
@@ -102,12 +104,14 @@ controller.hears(['ラーメン'], 'direct_message,direct_mention,mention', func
                 }
             },
             {
-                // 何も当てはまらない時の処理です。
                 default: true,
                 callback: function (response, convo) {
+
+                    // ▼ どのパターンにもマッチしない時の処理 ▼
+
                     convo.say('うーん、おしいです！:no_good:');
-                    convo.repeat(); // 質問を繰り返します。
-                    convo.next();
+                    convo.repeat(); // convo.repeat()で、質問を繰り返します。
+                    convo.next(); // 会話を次に進めます。この場合、最初の質問にも戻ります。
                 }
             }
 
@@ -127,20 +131,20 @@ controller.hears(['ラーメン'], 'direct_message,direct_mention,mention', func
 
 // 保存、取得、削除、すべて削除 の4つの操作ができます。
 
-//  (例)
-//   controller.storage.users.save({id: message.user, foo:'bar'}, function(err) { ... });
-//   controller.storage.users.get(id, function(err, user_data) {...});
-//   controller.storage.users.delete(id, function(err) {...});
-//   controller.storage.users.all(function(err, all_user_data) {...});
+//  [例]
+//    controller.storage.users.save({id: message.user, foo:'bar'}, function(err) { ... });
+//    controller.storage.users.get(id, function(err, user_data) {...});
+//    controller.storage.users.delete(id, function(err) {...});
+//    controller.storage.users.all(function(err, all_user_data) {...});
 
 
 // Botkitは、「ユーザー」「チャンネル」「チーム」ごとにデータを保持できます。
 // それぞれ、下記のように呼び出せます。
 
-//  (例)
-//   controller.storage.users.***
-//   controller.storage.channels.***
-//   controller.storage.teams.***
+//  [例]
+//    controller.storage.users.***
+//    controller.storage.channels.***
+//    controller.storage.teams.***
 
 
 controller.hears(['(.*)って呼んで'], 'direct_message,direct_mention,mention', function (bot, message) {
@@ -161,9 +165,8 @@ controller.hears(['(.*)って呼んで'], 'direct_message,direct_mention,mention
 
         // ▼ データ取得後の処理 ▼
 
-        // 第二引数で指定した変数(ここでは'user_info')に、ユーザーデータが入っています。
-
         // ユーザーデータが存在しているかどうか調べる
+        // ※第二引数で指定した変数(ここでは'user_info')に、ユーザーデータが入っています。
         if (!user_info) {
 
             // ▼ ユーザーデータがなかった場合の処理 ▼
@@ -190,11 +193,12 @@ controller.hears(['(.*)って呼んで'], 'direct_message,direct_mention,mention
 });
 
 
+
 //=========================================================
 // どれにも当てはまらなかった場合の返答
 //=========================================================
 
-// hears()には優先順位があり、上のものから優先にマッチします。
+// controller.hears()には優先順位があり、上のものから優先にマッチします。
 // すべてにマッチするhears()を、一番最後に記述すれば、
 // 「当てはまらなかった場合の返答」を作成できます。
 
@@ -202,9 +206,9 @@ controller.hears(['(.*)'], 'direct_message,direct_mention,mention', function (bo
 
 
     // ユーザーデータを取得
-    controller.storage.users.get(message.user, function (err, user) {
+    controller.storage.users.get(message.user, function (err, user_info) {
 
-        if (user && user.name) {
+        if (user_info && user_info.name) {
 
             // ▼ ユーザーデータが保存されていたときの処理 ▼
 

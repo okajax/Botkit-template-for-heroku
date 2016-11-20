@@ -52,28 +52,6 @@ controller.hears(['挨拶', 'こんにちは', 'Bot', 'あなた', '誰', 'だ�
 });
 
 
-//=========================================================
-// 絵文字リアクション
-//=========================================================
-
-controller.hears(['ハイタッチ'], 'direct_message,direct_mention,mention,ambient', function (bot, message) {
-
-    bot.reply(message, 'ハイタッチ！');
-
-    // 絵文字リアクションを追加
-    bot.api.reactions.add({
-        timestamp: message.ts,
-        channel: message.channel,
-        name: 'raising_hand', // ここで絵文字名を指定します (例 : smilely, muscle など)
-    }, function (err, res) {
-        if (err) {
-            bot.botkit.log('Failed to add emoji reaction :(', err); // エラーが出たとき用の出力
-        }
-    });
-
-});
-
-
 
 //=========================================================
 // 質問形式の会話
@@ -119,6 +97,29 @@ controller.hears(['ラーメン'], 'direct_message,direct_mention,mention', func
         ]);
 
     })
+
+});
+
+
+
+//=========================================================
+// 絵文字リアクション
+//=========================================================
+
+controller.hears(['ハイタッチ'], 'direct_message,direct_mention,mention,ambient', function (bot, message) {
+
+    bot.reply(message, 'ハイタッチ！');
+
+    // 絵文字リアクションを追加
+    bot.api.reactions.add({
+        timestamp: message.ts,
+        channel: message.channel,
+        name: 'raising_hand', // ここで絵文字名を指定します (例 : smilely, muscle など)
+    }, function (err, res) {
+        if (err) {
+            bot.botkit.log('Failed to add emoji reaction :(', err); // エラーが出たとき用の出力
+        }
+    });
 
 });
 

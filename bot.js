@@ -35,19 +35,19 @@ var bot = controller.spawn({
 // 以下がBotkitの基本形です。
 // controller.hears()で、マッチした単語に応じて処理を実行します。
 
-// 第一引数 ['hoge','piyo'] の部分には、マッチさせたい単語を入れます。正規表現も使えます。
+// 第一引数 ['ほげ','ふが'] の部分には、マッチさせたい単語を入れます。正規表現も使えます。
 // 第二引数 'direct_message,direct_mention' の部分には、反応するパターンを入れます。
 
-//  [パターン一覧]
-//    direct_message: ダイレクトメッセージに反応する
-//    direct_mention: 先頭に@付きで発言されたメッセージに反応する
-//    mention: @付きで言及されたメッセージに反応する
-//    ambient: すべてのメッセージに反応する
+//  [反応パターン一覧]
+//    direct_message: ダイレクトメッセージに反応します
+//    direct_mention: 先頭に@付きで発言されたメッセージに反応します
+//    mention: @付きで言及されたメッセージに反応します
+//    ambient: どんなメッセージタイプにも反応します
 
-controller.hears(['挨拶', 'あなた', '誰', 'だれ', '自己紹介して'], 'direct_message,direct_mention,mention', function (bot, message) {
+controller.hears(['挨拶', 'こんにちは', 'Bot', 'あなた', '誰', 'だれ', '自己紹介'], 'direct_message,direct_mention,mention', function (bot, message) {
 
     // bot.reply()で、botに発言をさせます。
-    bot.reply(message, 'こんにちは！私は*Botkit製のBot*です！\n _いろんな事ができますよ！_ :smiley:');
+    bot.reply(message, 'こんにちは！私は *Botkit製のBot* です！ \n _いろんな事ができますよ！_ :smiley:');
 
 });
 
@@ -56,7 +56,9 @@ controller.hears(['挨拶', 'あなた', '誰', 'だれ', '自己紹介して'],
 // 絵文字リアクション
 //=========================================================
 
-controller.hears(['ハイタッチ'], 'direct_message,direct_mention,mention', function (bot, message) {
+controller.hears(['ハイタッチ'], 'direct_message,direct_mention,mention,ambient', function (bot, message) {
+
+    bot.reply(message, 'ハイタッチ！');
 
     // 絵文字リアクションを追加
     bot.api.reactions.add({

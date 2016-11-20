@@ -116,7 +116,6 @@ controller.hears(['ラーメン'], 'direct_message,direct_mention,mention', func
                     convo.next(); // 会話を次に進めます。この場合、最初の質問にも戻ります。
                 }
             }
-
         ]);
 
     })

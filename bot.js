@@ -213,7 +213,7 @@ controller.hears(['(.*)'], 'direct_message,direct_mention,mention', function (bo
 
             // ▼ ユーザーデータが保存されていたときの処理 ▼
 
-            bot.reply(message, 'こんにちは *' + user.name + '* さん！ :grin:');
+            bot.reply(message, 'こんにちは *' + user_info.name + '* さん！ :grin:');
 
         } else {
 
